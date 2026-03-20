@@ -1,3 +1,5 @@
+@use 'sass:list'
+
 body {
   margin: 0;
 }
@@ -42,49 +44,25 @@ body {
     }
   }
 
-  @for $day from 1 through 31 {
-    &__day:nth-child(#{$day})::before {
-      content: '#{$day}';
-    }
+@for $day from 1 through 31 {
+  &__day:nth-child(#{$day})::before {
+    content: '#{$day}';
   }
+}
 
-  &--start-day-mon &__day:first-child {
-    margin-left: 0;
-  }
+$days: mon, tue, wed, thu, fri, sat, sun;
 
-  &--start-day-tue &__day:first-child {
-    margin-left: $offset-step;
-  }
+@each $day in $days {
+  $index: list.index($days, $day) - 1;
 
-  &--start-day-wed &__day:first-child {
-    margin-left: $offset-step * 2;
+  &--start-day-#{$day} &__day:first-child {
+      margin-left: $offset-step * $index;
   }
+}
 
-  &--start-day-thu &__day:first-child {
-    margin-left: $offset-step * 3;
+@for $days from 28 through 30 {
+  &--month-length-#{$days} &__day:nth-child(n +#{$days + 1}) {
+    display: none
   }
-
-  &--start-day-fri &__day:first-child {
-    margin-left: $offset-step * 4;
-  }
-
-  &--start-day-sat &__day:first-child {
-    margin-left: $offset-step * 5;
-  }
-
-  &--start-day-sun &__day:first-child {
-    margin-left: $offset-step * 6;
-  }
-
-  &--month-length-28 &__day:nth-child(n + 29) {
-    display: none;
-  }
-
-  &--month-length-29 &__day:nth-child(n + 30) {
-    display: none;
-  }
-
-  &--month-length-30 &__day:nth-child(n + 31) {
-    display: none;
-  }
+ }
 }
