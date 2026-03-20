@@ -49,7 +49,7 @@ $days: mon, tue, wed, thu, fri, sat, sun;
   }
 }
 
-@for $days from 28 through 30 {
+@for $days from 28 through 31 {
   &--month-length-#{$days} &__day:nth-child(n +#{$days + 1}) {
     display: none
   }
